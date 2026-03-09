@@ -1,0 +1,22 @@
+{% block body %}
+
+	<h1>
+		{{cours.name}}
+	</h1>
+
+	{{form_start(form)}}
+	<div>
+		{{ form_row(form.name)}}
+		{{ form_row(form.teacher)}}
+	</div>
+	<div>
+		{{ form_row(form.room)}}
+		{{ form_row(form.level)}}
+	</div>
+
+
+	{{form_end(form)}}
+	<a href="{{ path('planning.edit', {id: cours.id}) }}">Éditer ce cours</a>
+	<a href="{{ path('home') }}">Retour à l'index</a>
+
+{% endblock %}

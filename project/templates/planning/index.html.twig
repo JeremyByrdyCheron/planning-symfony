@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<p>
+	<a href="{{ path('planning.create') }}">Créer une recette</a>
+
+</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Titre</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		{% for planning in plannings %}
+
+			<tr>
+				<td>
+					<a href="{{ path('planning.show', {id: planning.id}) }}">
+						{{ planning.name }}</a>
+				</td>
+				<td>
+					<a href="{{ path('planning.edit', {id: planning.id}) }}">Editer</a>
+				</td>
+			</tr>
+		</a>
+	</tbody>
+</td></tr>{%endfor %}</tbody></table><a href="{{ path('home') }}">Retour à l'index</a>{% endblock %}

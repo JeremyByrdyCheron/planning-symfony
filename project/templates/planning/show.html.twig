@@ -1,0 +1,30 @@
+{% block body %}
+
+	<h1>Détails du cours</h1>
+
+	<p>
+		Titre :
+		{{ cours.name }}</p>
+	<p>
+		Professeur :
+		{{ cours.teacher }}</p>
+	<p>
+		Salle :
+		{{ cours.room }}</p>
+	<p>
+		Niveau :
+		{{ cours.level }}</p>
+	<p>
+		Date :
+		{{ cours.date ? cours.date|date('d/m/Y') : '' }}</p>
+	<p>
+		Heure de début :
+		{{ cours.start ? cours.start|date('H:i') : '' }}</p>
+	<p>
+		Heure de fin :
+		{{ cours.end ? cours.end|date('H:i') : '' }}</p>
+
+	<a href="{{ path('planning.edit', {id: cours.id}) }}">Éditer ce cours</a>
+	<a href="{{ path('home') }}">Retour à l'index</a>
+
+{% endblock %}
