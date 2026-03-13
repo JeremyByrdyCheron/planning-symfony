@@ -24,6 +24,7 @@
 		Heure de fin :
 		{{ cours.end ? cours.end|date('H:i') : '' }}</p>
 
+
 	<a href="{{ path('planning.edit', {id: cours.id}) }}">Éditer ce cours</a>
 	<a href="{{ path('home') }}">Retour à l'index</a>
 

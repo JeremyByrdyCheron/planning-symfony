@@ -44,7 +44,9 @@ final class PlanningController extends AbstractController
             $em->flush();
             return $this->redirectToRoute("home");
         }
-        return $this->render("planning/edit.html.twig", ["cours" => $cours, "form" => $form]);
+
+
+        return $this->render("planning/edit.html.twig", ["cours" => $cours, "form" => $form->createView()]);
     }
 
     #[Route('/create', name: "planning.create")]
@@ -55,12 +57,16 @@ final class PlanningController extends AbstractController
         $cours = new Cours();
         $form = $this->createForm(PlanningType::class, $cours);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($cours);
-            $em->flush();
-            return $this->redirectToRoute("home");
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $em->persist($cours);
+                $em->flush();
+                return $this->redirectToRoute("home");
+            } else {
+                dd($form->getErrors(true, false));
+            }
         }
-        return $this->render('planning/create.html.twig', ['form' => $form]);
+        return $this->render('planning/create.html.twig', ['form' => $form->createView()]);
     }
 
 }

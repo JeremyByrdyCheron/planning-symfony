@@ -3,31 +3,120 @@
 
 {% block body %}
 
-<p>
-	<a href="{{ path('planning.create') }}">Créer une recette</a>
+	<p>
+		<a href="{{ path('planning.create') }}">Créer un cours</a>
+		<a href="{{ path('anecdote.create') }}">Créer une anecdote</a>
 
-</p>
+	</p>
 
-<table>
-	<thead>
-		<tr>
-			<th>Titre</th>
-			<th>Action</th>
-		</tr>
-	</thead>
-
-	<tbody>
-		{% for planning in plannings %}
-
+	<table>
+		<thead>
 			<tr>
-				<td>
-					<a href="{{ path('planning.show', {id: planning.id}) }}">
-						{{ planning.name }}</a>
-				</td>
-				<td>
-					<a href="{{ path('planning.edit', {id: planning.id}) }}">Editer</a>
-				</td>
+				<th>Consulter</th>
+				<th>Matière</th>
+				<th>Niveau</th>
+				<th>Professeur</th>
+				<th>Horaire</th>
 			</tr>
-		</a>
-	</tbody>
-</td></tr>{%endfor %}</tbody></table><a href="{{ path('home') }}">Retour à l'index</a>{% endblock %}
+		</thead>
+
+		<tbody>
+			<th>
+				<h2>Aujourd'hui:
+				</h2>
+			</th>
+			{% for cours in todayPlanning|sort((a, b) => a.level <=> b.level) %}
+				<tr>
+					<td>
+						<a href="{{ path('planning.show', {id: cours.id}) }}">
+							Consulter
+						</a>
+					</td>
+					<td>
+						<p>
+							{{cours.name}}
+						</p>
+					</td>
+					<td>
+						<p>
+							{{cours.level}}
+						</p>
+					</td>
+					<td>
+						<p>
+							{{cours.teacher}}
+						</p>
+					</td>
+					<td>
+						<p>Début:
+							{{cours.start|date('H:i') }}
+						</p>
+						<p>Fin:
+							{{cours.end|date('H:i') }}
+						</p>
+					</td>
+					<td>
+						<a href="{{ path('planning.edit', {id: cours.id}) }}">Editer</a>
+					</td>
+				</tr>
+			{% endfor %}
+
+			<th>
+				<h2>Demain:
+				</h2>
+			</th>
+			{% for cours in tomorrowPlanning|sort((a, b) => a.level <=> b.level) %}
+
+				<tr>
+					<td>
+						<a href="{{ path('planning.show', {id: cours.id}) }}">
+							Consulter
+						</a>
+					</td>
+					<td>
+						<p>
+							{{cours.name}}
+						</p>
+					</td>
+					<td>
+						<p>
+							{{cours.level}}
+						</p>
+					</td>
+					<td>
+						<p>
+							{{cours.teacher}}
+						</p>
+					</td>
+					<td>
+						<p>Début:
+							{{cours.start|date('H:i') }}
+						</p>
+						<p>Fin:
+							{{cours.end|date('H:i') }}
+						</p>
+					</td>
+					<td>
+						<a href="{{ path('planning.edit', {id: cours.id}) }}">Editer</a>
+					</td>
+				</tr>
+			{% endfor %}
+			<th>
+				<h2>Anecdotes:
+				</h2>
+			</th>
+			{% for anecdote in anecdotes %}
+
+				<tr>
+					<td>
+						<p>{{ anecdote.title }}</p>
+					</td>
+					<td>
+						<p>{{ anecdote.text }}</p>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<a href="{{ path('home') }}">Retour à l'index</a>
+{% endblock %}
