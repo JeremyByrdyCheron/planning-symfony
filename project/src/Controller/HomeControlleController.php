@@ -8,6 +8,7 @@ use App\Repository\CoursRepository;
 use App\Repository\AnecdoteRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use DOMDocument;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,8 +29,10 @@ final class HomeControlleController extends AbstractController
         $tomorrowPlanning = $cours->findBy([
             'date' => $tomorrow
         ]);
+        $compiegneActuality = simplexml_load_file("https://www.agglo-compiegne.fr/rss/actualites");
+
         // $plannings = $cours->findAll();
-        return $this->render("planning/index.html.twig", ["todayPlanning" => $todayPlanning, "tomorrowPlanning" => $tomorrowPlanning, "anecdotes" => $anecdotes]);
+        return $this->render("planning/index.html.twig", ["todayPlanning" => $todayPlanning, "tomorrowPlanning" => $tomorrowPlanning, "anecdotes" => $anecdotes, "xml" => $compiegneActuality]);
     }
 
 

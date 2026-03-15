@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('styles/style.css') }}">
+{% endblock %}
 
 {% block body %}
 
 	<p>
 		<a href="{{ path('planning.create') }}">Créer un cours</a>
 		<a href="{{ path('anecdote.create') }}">Créer une anecdote</a>
-
 	</p>
 
 	<table>
@@ -17,43 +19,28 @@
 				<th>Niveau</th>
 				<th>Professeur</th>
 				<th>Horaire</th>
+				<th>Editer</th>
 			</tr>
 		</thead>
-
 		<tbody>
-			<th>
-				<h2>Aujourd'hui:
-				</h2>
-			</th>
+			<tr>
+				<td colspan="6">
+					<strong>Aujourd'hui :</strong>
+				</td>
+			</tr>
 			{% for cours in todayPlanning|sort((a, b) => a.level <=> b.level) %}
 				<tr>
 					<td>
-						<a href="{{ path('planning.show', {id: cours.id}) }}">
-							Consulter
-						</a>
+						<a href="{{ path('planning.show', {id: cours.id}) }}">Consulter</a>
 					</td>
+					<td>{{ cours.name }}</td>
+					<td>{{ cours.level }}</td>
+					<td>{{ cours.teacher }}</td>
 					<td>
-						<p>
-							{{cours.name}}
-						</p>
-					</td>
-					<td>
-						<p>
-							{{cours.level}}
-						</p>
-					</td>
-					<td>
-						<p>
-							{{cours.teacher}}
-						</p>
-					</td>
-					<td>
-						<p>Début:
-							{{cours.start|date('H:i') }}
-						</p>
-						<p>Fin:
-							{{cours.end|date('H:i') }}
-						</p>
+						Début:
+						{{ cours.start|date('H:i') }}<br>
+						Fin:
+						{{ cours.end|date('H:i') }}
 					</td>
 					<td>
 						<a href="{{ path('planning.edit', {id: cours.id}) }}">Editer</a>
@@ -61,62 +48,61 @@
 				</tr>
 			{% endfor %}
 
-			<th>
-				<h2>Demain:
-				</h2>
-			</th>
+			<tr>
+				<td colspan="6">
+					<strong>Demain :</strong>
+				</td>
+			</tr>
 			{% for cours in tomorrowPlanning|sort((a, b) => a.level <=> b.level) %}
-
 				<tr>
 					<td>
-						<a href="{{ path('planning.show', {id: cours.id}) }}">
-							Consulter
-						</a>
+						<a href="{{ path('planning.show', {id: cours.id}) }}">Consulter</a>
 					</td>
+					<td>{{ cours.name }}</td>
+					<td>{{ cours.level }}</td>
+					<td>{{ cours.teacher }}</td>
 					<td>
-						<p>
-							{{cours.name}}
-						</p>
-					</td>
-					<td>
-						<p>
-							{{cours.level}}
-						</p>
-					</td>
-					<td>
-						<p>
-							{{cours.teacher}}
-						</p>
-					</td>
-					<td>
-						<p>Début:
-							{{cours.start|date('H:i') }}
-						</p>
-						<p>Fin:
-							{{cours.end|date('H:i') }}
-						</p>
+						Début:
+						{{ cours.start|date('H:i') }}<br>
+						Fin:
+						{{ cours.end|date('H:i') }}
 					</td>
 					<td>
 						<a href="{{ path('planning.edit', {id: cours.id}) }}">Editer</a>
 					</td>
 				</tr>
 			{% endfor %}
-			<th>
-				<h2>Anecdotes:
-				</h2>
-			</th>
-			{% for anecdote in anecdotes %}
 
-				<tr>
-					<td>
-						<p>{{ anecdote.title }}</p>
-					</td>
-					<td>
-						<p>{{ anecdote.text }}</p>
-					</td>
-				</tr>
-			{% endfor %}
 		</tbody>
+
 	</table>
-	<a href="{{ path('home') }}">Retour à l'index</a>
+	<div>
+		<h2>Anecdotes</h2>
+		{% for anecdote in anecdotes %}
+			<div>
+				<h3>{{ anecdote.title }}</h3>
+				<p>{{ anecdote.text }}</p>
+			</div>
+		{% endfor %}
+	</div>
+
+
+	<h2>
+		{{xml.channel.title}}
+	</h2>
+	{% for actu in xml.channel.item %}
+		<a href=" {{actu.link}} " target="_blank">
+			<h3 {{actu.title|raw}}></h3>
+
+			<p>
+				{{actu.description|raw}}
+			</p>
+			<p>Publie le
+				{{actu.pubDate|date("d M Y ")}}</p>
+
+
+		</a>
+
+	{% endfor %}
+
 {% endblock %}
