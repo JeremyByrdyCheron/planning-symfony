@@ -49,7 +49,7 @@ final class PlanningController extends AbstractController
         return $this->render("planning/edit.html.twig", ["cours" => $cours, "form" => $form->createView()]);
     }
 
-    #[Route('/create', name: "planning.create")]
+    #[Route('/create-planning', name: "planning.create")]
     #[IsGranted('ROLE_ADMIN')]
 
     public function create(Request $request, EntityManagerInterface $em)
@@ -67,6 +67,15 @@ final class PlanningController extends AbstractController
             }
         }
         return $this->render('planning/create.html.twig', ['form' => $form->createView()]);
+    }
+    #[Route("/{id}/delete-cours", name: "cours.delete", methods: ["POST"])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function delete(Cours $cours, EntityManagerInterface $em)
+    {
+        $em->remove($cours);
+        $em->flush();
+
+        return $this->redirectToRoute("home");
     }
 
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Cours;
 use App\Form\PlanningType;
+use App\Repository\ActualityRepository;
 use App\Repository\CoursRepository;
 use App\Repository\AnecdoteRepository;
 use DateTime;
@@ -17,7 +18,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class HomeControlleController extends AbstractController
 {
     #[Route("/", name: "home")]
-    function index(CoursRepository $cours, AnecdoteRepository $anecdote): Response
+    function index(CoursRepository $cours, AnecdoteRepository $anecdote, ActualityRepository $actuality): Response
     {
         $anecdotes = $anecdote->findAll();
         $today = new \DateTime();
@@ -31,8 +32,10 @@ final class HomeControlleController extends AbstractController
         ]);
         $compiegneActuality = simplexml_load_file("https://www.agglo-compiegne.fr/rss/actualites");
 
+        $campusActuality = $actuality->findAll();
+
         // $plannings = $cours->findAll();
-        return $this->render("planning/index.html.twig", ["todayPlanning" => $todayPlanning, "tomorrowPlanning" => $tomorrowPlanning, "anecdotes" => $anecdotes, "xml" => $compiegneActuality]);
+        return $this->render("planning/index.html.twig", ["todayPlanning" => $todayPlanning, "tomorrowPlanning" => $tomorrowPlanning, "anecdotes" => $anecdotes, "compiegneActuality" => $compiegneActuality, "campusActuality" => $campusActuality]);
     }
 
 

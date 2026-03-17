@@ -16,7 +16,7 @@ class Actuality
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 1024)]
     private ?string $text = null;
 
     public function getId(): ?int

@@ -6,10 +6,6 @@
 
 {% block body %}
 
-	<p>
-		<a href="{{ path('planning.create') }}">Créer un cours</a>
-		<a href="{{ path('anecdote.create') }}">Créer une anecdote</a>
-	</p>
 
 	<table>
 		<thead>
@@ -45,6 +41,11 @@
 					<td>
 						<a href="{{ path('planning.edit', {id: cours.id}) }}">Editer</a>
 					</td>
+					<td>
+						<form method="post" action="{{ path('cours.delete', {id: cours.id}) }}" onsubmit="return confirm('Tu es sûr ?');">
+							<button type="submit">Supprimer</button>
+						</form>
+					</td>
 				</tr>
 			{% endfor %}
 
@@ -73,6 +74,12 @@
 				</tr>
 			{% endfor %}
 
+			<tr>
+				<td colspan="6">
+					<a href="{{ path('planning.create') }}">Créer un cours</a>
+				</td>
+			</tr>
+
 		</tbody>
 
 	</table>
@@ -82,15 +89,21 @@
 			<div>
 				<h3>{{ anecdote.title }}</h3>
 				<p>{{ anecdote.text }}</p>
+				<a href="{{ path('anecdote.edit', {id: anecdote.id}) }}">Editer</a>
+				<form method="post" action="{{ path('anecdote.delete', {id: anecdote.id}) }}" onsubmit="return confirm('Tu es sûr ?');">
+					<button type="submit">Supprimer</button>
+				</form>
 			</div>
 		{% endfor %}
+		<a href="{{ path('anecdote.create') }}">Créer une anecdote</a>
+
 	</div>
 
 
 	<h2>
-		{{xml.channel.title}}
+		Les actualités sur Compiègne:
 	</h2>
-	{% for actu in xml.channel.item %}
+	{% for actu in compiegneActuality.channel.item %}
 		<a href=" {{actu.link}} " target="_blank">
 			<h3 {{actu.title|raw}}></h3>
 
@@ -100,9 +113,27 @@
 			<p>Publie le
 				{{actu.pubDate|date("d M Y ")}}</p>
 
-
 		</a>
 
 	{% endfor %}
+
+	<h2>Actualités du campus:
+	</h2>
+	{% for actu in campusActuality %}
+		<div>
+			<h3>
+				{{actu.type}}
+			</h3>
+			<p>
+				{{actu.text}}
+			</p>
+			<a href="{{ path('actuality.edit', {id: actu.id}) }}">Editer</a>
+			<form method="post" action="{{ path('actuality.delete', {id: actu.id}) }}" onsubmit="return confirm('Tu es sûr ?');">
+				<button type="submit">Supprimer</button>
+			</form>
+		</div>
+	{% endfor %}
+	<a href="{{ path('campusActuality.create') }}">Créer une actualité du campus</a>
+
 
 {% endblock %}
