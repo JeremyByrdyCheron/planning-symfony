@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Cours;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
@@ -20,8 +21,10 @@ class PlanningType extends AbstractType
             ->add('teacher', TextType::class, ['label' => 'Professeur: '])
             ->add('room', TextType::class, ['label' => 'Salle: '])
             ->add('level', TextType::class, ['label' => 'Niveau: '])
-            ->add('date')
-            ->add('start', TimeType::class, ['label' => 'Début: '])
+            ->add('date', DateType::class, [
+                'label' => 'Date : ',
+                'data' => new \DateTime()
+            ])->add('start', TimeType::class, ['label' => 'Début: '])
             ->add('end', TimeType::class, ['label' => 'Fin: '])
             ->add('save', SubmitType::class, ['label' => 'Confirmer'])
         ;
