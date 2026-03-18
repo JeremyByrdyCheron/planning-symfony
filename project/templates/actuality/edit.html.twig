@@ -1,0 +1,14 @@
+{% block body %}
+
+	<h1>
+		{{actuality.type}}
+	</h1>
+
+	{{form_start(form)}}
+
+
+	{{form_end(form)}}
+	<a href="{{ path('actuality.edit', {id: actuality.id}) }}">Éditer cette actualité</a>
+	<a href="{{ path('home') }}">Retour à l'index</a>
+
+{% endblock %}
