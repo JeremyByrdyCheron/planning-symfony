@@ -24,7 +24,8 @@ class PlanningType extends AbstractType
             ->add('date', DateType::class, [
                 'label' => 'Date : ',
                 'data' => new \DateTime()
-            ])->add('start', TimeType::class, ['label' => 'Début: '])
+            ])
+            ->add('start', TimeType::class, ['label' => 'Début: '])
             ->add('end', TimeType::class, ['label' => 'Fin: '])
             ->add('save', SubmitType::class, ['label' => 'Confirmer'])
         ;

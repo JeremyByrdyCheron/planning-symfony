@@ -1,3 +1,7 @@
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('styles/form.css') }}">
+{% endblock %}
+
 {% block body %}
 
 	<h1>
@@ -8,7 +12,6 @@
 
 
 	{{form_end(form)}}
-	<a href="{{ path('anecdote.edit', {id: anecdote.id}) }}">Éditer cette anecdote</a>
 	<a href="{{ path('home') }}">Retour à l'index</a>
 
 {% endblock %}

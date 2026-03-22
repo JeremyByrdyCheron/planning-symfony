@@ -1,0 +1,87 @@
+body {
+    margin: 1.5rem;
+    background-color: #eef2f7 !important;
+    color: #2f3640;
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+    color: #192a56;
+}
+
+p {
+    background: #ffffff;
+    padding: 0.8rem;
+    border: 0.05rem solid #dcdde1;
+    margin-bottom: 0.5rem;
+}
+
+a {
+    display: inline-block;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    color: #2980b9;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+form {
+    background: #ffffff;
+    padding: 1.2rem;
+    border: 0.05rem solid #dcdde1;
+    margin-bottom: 1.5rem;
+}
+form > div {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.4rem;
+    border: 0.05rem solid #dcdde1;
+    background: #f8f9fb;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #273c75;
+}
+
+ul {
+    margin: 0;
+    padding: 0.5rem;
+    list-style: none;
+    color: #e84118;
+}
+
+button {
+    margin-top: 1rem;
+    padding: 0.4rem 0.8rem;
+    border: none;
+    background-color: #273c75;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #192a56;
+}
+
+form > * {
+    margin-bottom: 0.8rem;
+}

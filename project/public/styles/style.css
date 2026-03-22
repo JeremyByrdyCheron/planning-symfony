@@ -1,10 +1,90 @@
-table {
-    border-collapse: collapse;
-    width: 100%;
+body {
+    margin: 1.5rem;
+    background-color: #f5f6fa !important ;
+    color: #2f3640;
 }
 
-table,
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    margin-bottom: 2rem;
+}
+
+thead {
+    background-color: #273c75;
+    color: white;
+}
+
 th,
 td {
-    border: 1px solid black;
+    padding: 0.6rem;
+    text-align: left;
+    border: 0.05rem solid #dcdde1;
+}
+
+tr:nth-child(even) {
+    background-color: #f1f2f6;
+}
+
+a {
+    color: #2980b9;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button {
+    padding: 0.3rem 0.6rem;
+    border: none;
+    background-color: #e84118;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #c23616;
+}
+
+.anecdotes {
+    margin-top: 2rem;
+}
+
+.anecdotes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1rem;
+}
+
+.anecdote {
+    background: white;
+    padding: 1rem;
+    border: 0.05rem solid #dcdde1;
+}
+
+.actualities {
+    margin-top: 2rem;
+}
+
+.actualities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1rem;
+}
+
+.actuality {
+    background: white;
+    padding: 1rem;
+    border: 0.05rem solid #dcdde1;
+}
+
+h2 {
+    margin-top: 2rem;
+    color: #192a56;
+}
+
+h3 {
+    margin-bottom: 0.5rem;
 }

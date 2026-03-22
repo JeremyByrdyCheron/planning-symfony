@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ActualityRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ActualityRepository::class)]
@@ -18,6 +19,9 @@ class Actuality
 
     #[ORM\Column(length: 1024)]
     private ?string $text = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTime $date = null;
 
     public function getId(): ?int
     {
@@ -44,6 +48,18 @@ class Actuality
     public function setText(string $text): static
     {
         $this->text = $text;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTime
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTime $date): static
+    {
+        $this->date = $date;
 
         return $this;
     }

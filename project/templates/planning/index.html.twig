@@ -16,14 +16,16 @@
 				<th>Professeur</th>
 				<th>Horaire</th>
 				<th>Editer</th>
+				<th>Supprimer</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td colspan="6">
+				<td colspan="7">
 					<strong>Aujourd'hui :</strong>
 				</td>
 			</tr>
+			{# order cours with alphabetical order for the level #}
 			{% for cours in todayPlanning|sort((a, b) => a.level <=> b.level) %}
 				<tr>
 					<td>
@@ -50,7 +52,7 @@
 			{% endfor %}
 
 			<tr>
-				<td colspan="6">
+				<td colspan="7">
 					<strong>Demain :</strong>
 				</td>
 			</tr>
@@ -71,30 +73,36 @@
 					<td>
 						<a href="{{ path('planning.edit', {id: cours.id}) }}">Editer</a>
 					</td>
+					<td>
+						<form method="post" action="{{ path('cours.delete', {id: cours.id}) }}" onsubmit="return confirm('Tu es sûr ?');">
+							<button type="submit">Supprimer</button>
+						</form>
+					</td>
 				</tr>
 			{% endfor %}
 
 			<tr>
-				<td colspan="6">
+				<td colspan="7">
 					<a href="{{ path('planning.create') }}">Créer un cours</a>
 				</td>
 			</tr>
-
 		</tbody>
 
 	</table>
-	<div>
+	<div class="anecdotes">
 		<h2>Anecdotes</h2>
-		{% for anecdote in anecdotes %}
-			<div>
-				<h3>{{ anecdote.title }}</h3>
-				<p>{{ anecdote.text }}</p>
-				<a href="{{ path('anecdote.edit', {id: anecdote.id}) }}">Editer</a>
-				<form method="post" action="{{ path('anecdote.delete', {id: anecdote.id}) }}" onsubmit="return confirm('Tu es sûr ?');">
-					<button type="submit">Supprimer</button>
-				</form>
-			</div>
-		{% endfor %}
+		<div class="anecdotes-grid">
+			{% for anecdote in anecdotes %}
+				<div class="anecdote">
+					<h3>{{ anecdote.title }}</h3>
+					<p>{{ anecdote.text }}</p>
+					<a href="{{ path('anecdote.edit', {id: anecdote.id}) }}">Editer</a>
+					<form method="post" action="{{ path('anecdote.delete', {id: anecdote.id}) }}" onsubmit="return confirm('Tu es sûr ?');">
+						<button type="submit">Supprimer</button>
+					</form>
+				</div>
+			{% endfor %}
+		</div>
 		<a href="{{ path('anecdote.create') }}">Créer une anecdote</a>
 
 	</div>
@@ -110,29 +118,35 @@
 			<p>
 				{{actu.description|raw}}
 			</p>
-			<p>Publie le
+			<p>Publié le
 				{{actu.pubDate|date("d M Y ")}}</p>
 
 		</a>
 
 	{% endfor %}
 
-	<h2>Actualités du campus:
-	</h2>
-	{% for actu in campusActuality %}
-		<div>
-			<h3>
-				{{actu.type}}
-			</h3>
-			<p>
-				{{actu.text}}
-			</p>
-			<a href="{{ path('actuality.edit', {id: actu.id}) }}">Editer</a>
-			<form method="post" action="{{ path('actuality.delete', {id: actu.id}) }}" onsubmit="return confirm('Tu es sûr ?');">
-				<button type="submit">Supprimer</button>
-			</form>
+	<div class="actualities">
+		<h2>Actualités du campus:
+		</h2>
+		<div class="actualities-grid">
+			{% for actu in campusActuality %}
+				<div class="actuality">
+					<h3>
+						{{actu.type}}
+					</h3>
+					<p>
+						{{actu.text}}
+					</p>
+					<p>Le
+						{{actu.date|date("d M Y ")}}</p>
+					<a href="{{ path('actuality.edit', {id: actu.id}) }}">Editer</a>
+					<form method="post" action="{{ path('actuality.delete', {id: actu.id}) }}" onsubmit="return confirm('Tu es sûr ?');">
+						<button type="submit">Supprimer</button>
+					</form>
+				</div>
+			{% endfor %}
 		</div>
-	{% endfor %}
+	</div>
 	<a href="{{ path('campusActuality.create') }}">Créer une actualité du campus</a>
 
 

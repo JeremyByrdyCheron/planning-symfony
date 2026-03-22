@@ -23,7 +23,9 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
      * @var list<string> The user roles
      */
     #[ORM\Column]
-    private array $roles = ["ROLE_ADMIN"];
+
+// When the user is logged in, they automatically have the admin role. If they are not logged in and try to access a protected page, they are redirected to the login page. For security reasons, account creation is disabled here (otherwise anyone could become an admin). Accounts must be created directly in the database.    
+private array $roles = ["ROLE_ADMIN"];
 
     /**
      * @var string The hashed password
